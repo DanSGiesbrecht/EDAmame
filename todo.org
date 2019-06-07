@@ -1,0 +1,7 @@
+#+TITLE: To-Do list
+
+* TODO Test Digikey API
+  - [ ] Fetch Digikey order history (using Digikey API), print out
+* TODO Create naming rules for Internal Part Numbers (*IPN*), as needed.
+  E.g: *Resistors*: RES-<pkg>-<resistance>-<tolerance>-<temperature coefficient>
+  Goal: never manually assign part numbers for components

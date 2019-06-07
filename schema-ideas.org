@@ -1,0 +1,60 @@
+#+TITLE: Schema Ideas
+
+* Database
+
+PART {
+  IPN,
+  Description (default from Digikey on import, can be manually edited),
+  Key specs (In schematic symbol. Based on rule for part type) {
+    Value: <resistance>,
+    Tolerance
+  },
+  Full specs {
+    xasldf,
+    xasldf,
+    xasldf
+  },
+  Approved Manufacturer Parts {
+    MP (REFERENCE),
+    MP (REFERENCE),
+    MP (REFERENCE)
+  },
+  Cost (average of internal stock of Approved Manufacturer Parts)
+}
+
+MP (Manufacturer Part) {
+  MPN,
+  IPN (REFERENCE),
+  Datasheet,
+  Usage: (Internal Stock; Internal/Assembler; Assembler),
+  Internal Cost (if applicable),
+  Internal Quantity Avail: Internal Stock Qty,
+  Specs {
+    resistance,
+    tolerance,
+    package,
+    temperature coefficient
+  }
+  Suppliers (order for internal) {
+    Digikey PN
+    Mouser PN
+  }
+  Assembler {
+    MacroFab {
+      PN,
+      Cost
+    }
+  }
+}
+
+* KiCad library part information:
+** Pulled from server information, auto-populated as much as possible
+** Rules for what values are visible in schem for different components
+** When importing Official KiCad parts, only need to rename to IPN
+
+** Schematic Symbol:
+   IPN (name),
+   Description,
+   Value (visible in schem),
+   Key specs (visible in schem),
+   URL (to server)
