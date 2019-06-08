@@ -1,11 +1,12 @@
 #+TITLE: Schema Ideas
 
-* Database
+** Database
 
 PART {
+  id,
   IPN,
   Description (default from Digikey on import, can be manually edited),
-  Key specs (In schematic symbol. Based on rule for part type) {
+  Key specs (Pulled into schematic symbol. Based on rule for part type) {
     Value: <resistance>,
     Tolerance
   },
@@ -15,20 +16,34 @@ PART {
     xasldf
   },
   Approved Manufacturer Parts {
-    MP (REFERENCE),
-    MP (REFERENCE),
-    MP (REFERENCE)
+    MP-id (2-WAY REFERENCE),
+    MP-id (2-WAY REFERENCE),
+    MP-id (2-WAY REFERENCE),
   },
-  Cost (average of internal stock of Approved Manufacturer Parts)
+  Cost (average of internal stock of Approved Manufacturer Parts),
+  Stock (sum of all Approved Manufacturer Parts),
+  KiCad Library: Yes/No
 }
 
 MP (Manufacturer Part) {
-  MPN,
-  IPN (REFERENCE),
+  id,
+  MPNs {
+    Alias1,
+    Alias2,
+    Alias3
+  },
   Datasheet,
-  Usage: (Internal Stock; Internal/Assembler; Assembler),
-  Internal Cost (if applicable),
-  Internal Quantity Avail: Internal Stock Qty,
+  Internal {
+    IPN (2-WAY REFERENCE),
+    Cost (if applicable),
+    Quantity: Internal Stock Qty,
+  }
+  Assembler {
+    MacroFab {
+      PN,
+      Cost
+    }
+  }
   Specs {
     resistance,
     tolerance,
@@ -39,22 +54,44 @@ MP (Manufacturer Part) {
     Digikey PN
     Mouser PN
   }
-  Assembler {
-    MacroFab {
-      PN,
-      Cost
-    }
+}
+
+Order {
+  Supplier: Digikey,
+  Order Number,
+  Date,
+  PDF (maybe?),
+  Parts {
+    MP (REFERENCE): Digikey PN; Qty; Unit Cost,
+    MP (REFERENCE): Digikey PN; Qty; Unit Cost,
+    MP (REFERENCE): Digikey PN; Qty; Unit Cost,
+    MP (REFERENCE): Digikey PN; Qty; Unit Cost,
   }
 }
 
-* KiCad library part information:
-** Pulled from server information, auto-populated as much as possible
-** Rules for what values are visible in schem for different components
-** When importing Official KiCad parts, only need to rename to IPN
-
-** Schematic Symbol:
-   IPN (name),
-   Description,
-   Value (visible in schem),
-   Key specs (visible in schem),
-   URL (to server)
+** KiCad library
+*** Part Information:
+   - Pulled from server information, auto-populated as much as possible
+   - Rules for what values are visible in schem for different components
+   - When importing Official KiCad parts, only need to rename to IPN
+*** Schematic Symbol:
+    - IPN (name),
+    - Description,
+    - Value (visible in schem),
+    - Key specs (visible in schem),
+    - URL (to server)
+*** Library Repo:
+   - *.seeds* directory
+     - resistor seed symbol
+     - capacitor seed symbol
+     - polarized cap seed symbol
+     - ferrite bead seed symbol
+     - etc...
+   - manual directory (what can't be procedurally generated)
+     - Opamp
+   - generated directory (ignored by git)
+     - RES0402
+     - RES0603
+     - ...
+     - CAP0402
+   - scripts directory
