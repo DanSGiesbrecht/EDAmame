@@ -1,7 +1,7 @@
 #+TITLE: Schema Ideas
 
 ** Database
-
+#+BEGIN_SRC
 PART {
   id,
   IPN,
@@ -68,6 +68,7 @@ Order {
     MP (REFERENCE): Digikey PN; Qty; Unit Cost,
   }
 }
+#+END_SRC
 
 ** KiCad library
 *** Part Information:
