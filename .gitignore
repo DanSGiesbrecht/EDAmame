@@ -1,0 +1,4 @@
+# EDAmame .gitignore
+
+# ignore files starting with '#'
+\#*
