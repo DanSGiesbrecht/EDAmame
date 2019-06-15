@@ -1,6 +1,7 @@
 # EDAmame - EDA Management Tool
 
-## Goals:
+## Project Goals:
+
 * Track personal part inventory effortlessly.
 * Assign Internal Part Numbers upon Order Import.
 * Suggest similar parts which can share an Internal Part Number (Approved Manufacturer Parts)
@@ -14,3 +15,7 @@
 * Quote manufacturing cost:
   * Cost of PCB + components, or
   * Cost of assembly (e.g. MacroFab using house-parts)
+
+## License
+
+EDAmame is released under the [MIT License](https://opensource.org/licenses/MIT).
