@@ -1,7 +1,11 @@
 // server.js
 
+// node.js packages
 const http = require('http');
 const url  = require('url');
+
+// npm packages
+const ejs  = require('ejs');
 
 const server = http.createServer();
 

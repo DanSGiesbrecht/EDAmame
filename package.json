@@ -8,5 +8,8 @@
     "start": "node server.js"
   },
   "author": "Daniel Giesbrecht",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.6.2"
+  }
 }
