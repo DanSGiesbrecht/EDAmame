@@ -3,6 +3,7 @@
 // node.js packages
 const http = require('http');
 const url  = require('url');
+const fs   = require('fs');
 
 // npm packages
 const ejs  = require('ejs');
@@ -15,7 +16,10 @@ server.on('request', (request, response) => {
   switch(request.method) {
   case 'GET':
     if(requestUrl.pathname.startsWith('/')) {
-      return response.end('<p>HTML sample test</p>');
+      ejs.renderFile('./views/home.ejs', (error, content) => {
+	return response.end(content);
+      });
+      //return response.end('<p>HTML sample test</p>');
     } else {
       return response.writeHead('404').end('Page Not Found');
     }
