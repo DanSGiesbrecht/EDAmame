@@ -1,21 +1,32 @@
-// routes.js
+/*************************************************************
+* routes.js
+*************************************************************/
 
 const url = require('url');
-
-// npm packages
 const ejs = require('ejs');
 
 module.exports = {
-  /*static: (request, response) => {
-
-  },*/
+  static: (request, response) => {
+    return new Promise((resolve, reject) => {
+      const mimetypes = { 'css': 'text/css' };
+      const filePath = '.' + request.url;
+      console.log(filePath);
+      if(onPath('/static', request.url) && request.method === 'GET') {
+	console.log('requested /static');
+	resolve(true);
+      } else {
+	console.log('resolve false');
+	resolve(false);
+      }
+    });
+  },
   home: (request, response) => {
     return new Promise((resolve, reject) => {
-      const requestUrl = url.parse(request.url, true);
-
+      console.log('made it here');
       switch(request.method) {
       case 'GET':
-        if(requestUrl.pathname.startsWith('/')) {
+        if(onPath('/', request.url)) {
+	  console.log('requested /');
           ejs.renderFile('./views/home.ejs', (error, content) => {
 	    response.end(content);
             resolve(true);
@@ -26,4 +37,14 @@ module.exports = {
       }
     });
   }
+};
+
+/*************************************************************
+* helper functions
+*************************************************************/
+
+// onPath
+function onPath(path, urlObj) {
+  const reqUrl = url.parse(urlObj, true);
+  return reqUrl.pathname.startsWith(path);
 }
