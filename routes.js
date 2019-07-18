@@ -6,22 +6,24 @@ const url = require('url');
 const ejs = require('ejs');
 
 module.exports = {
-  static: (request, response) => {
+  /*static: (request, response) => {
 
-  },
-  home: async (request, response) => {
-    const requestUrl = url.parse(request.url, true);
+  },*/
+  home: (request, response) => {
+    return new Promise((resolve, reject) => {
+      const requestUrl = url.parse(request.url, true);
 
-    switch(request.method) {
-    case 'GET':
-      if(requestUrl.pathname.startsWith('/')) {
-        ejs.renderFile('./views/home.ejs', (error, content) => {
-          return response.end(content);
-        });
-        //return response.end('<p>HTML sample test</p>');
-      } else {
-        return response.writeHead('404').end('Page Not Found');
+      switch(request.method) {
+      case 'GET':
+        if(requestUrl.pathname.startsWith('/')) {
+          ejs.renderFile('./views/home.ejs', (error, content) => {
+	    response.end(content);
+            resolve(true);
+          });
+        } else {
+	  resolve(false);
+        }
       }
-    }
+    });
   }
 }

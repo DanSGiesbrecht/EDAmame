@@ -1,21 +1,17 @@
 // server.js
 
-// node.js packages
 const http = require('http');
-
-// local modules
 const routes = require('./routes.js');
 
+const routeArr = Object.values(routes);
 
 const server = http.createServer();
 
-// can the callback function be async??
-server.on('request', async (request, response) => {
-  // forEach with an array of routes (or something)
-  // continue only if all previous routes return false (haven't found a match)
-  // if route function returns true, return
-  // after end of forEach, return 404
-  await routes.home(request, response);
+server.on('request', (request, response) => {
+  // if any route returns <true>, stop checking routes.
+  routeArr.some(async (route) => {
+    return await route(request, response);
+  });
 });
 
 const port = 3000;
