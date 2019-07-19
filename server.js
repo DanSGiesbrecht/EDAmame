@@ -10,20 +10,10 @@ const server = http.createServer();
 
 server.on('request', async (request, response) => {
   // if any route returns <true>, stop checking routes.
-
-  // this code doesn't work: .some() doesn't work with
-  // promises.
-  // Must use a loop without a callback!!
-  await routeArr.some(async (route) => {
-    console.log(route);
-    return await route(request, response);
-  });
-
-  // this code does work
-  /*let found = await routes.static(request, response);
-  if(!found) {
-    routes.home(request, response);
-  }*/
+  for(let i = 0; i < routeArr.length; i++) {
+    console.log(routeArr[i]);
+    if(await routeArr[i](request, response)) return;
+  }
 });
 
 const port = 3000;
