@@ -3,26 +3,32 @@
 *************************************************************/
 
 const url = require('url');
+const fs = require('fs');
 const ejs = require('ejs');
 
 module.exports = {
+
   static: (request, response) => {
     return new Promise((resolve, reject) => {
-      const mimetypes = { 'css': 'text/css' };
-      const filePath = '.' + request.url;
-      console.log(filePath);
       if(onPath('/static', request.url) && request.method === 'GET') {
-	console.log('requested /static');
-	resolve(true);
+        const mimetypes = { 'css': 'text/css' };
+        const filePath = '.' + request.url;
+        const ext = filePath.split('.').pop();
+	fs.readFile(filePath, (error, content) => {
+	  if(error) { /* 404 - handle invalid */ }
+	  console.log('requested /static');
+	  response.writeHead(200, {'Content-Type' : mimetypes[ext]});
+	  response.end(content);
+	  resolve(true);
+	});
       } else {
-	console.log('resolve false');
 	resolve(false);
       }
     });
   },
+
   home: (request, response) => {
     return new Promise((resolve, reject) => {
-      console.log('made it here');
       switch(request.method) {
       case 'GET':
         if(onPath('/', request.url)) {
