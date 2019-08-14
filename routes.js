@@ -5,23 +5,29 @@
 const url = require('url');
 const fs = require('fs');
 const ejs = require('ejs');
+const nodePath = require('path');
 
 module.exports = {
 
   static: (request, response) => {
     return new Promise((resolve, reject) => {
-      if(onPath('/static', request.url) && request.method === 'GET') {
+      let safePath = nodePath.normalize(decodeURI(request.url));
+      if(onPath('/static', safePath) && request.method === 'GET') {
         const mimetypes = { 'css': 'text/css' };
         const filePath = '.' + request.url;
         const ext = filePath.split('.').pop();
 	fs.readFile(filePath, (error, content) => {
-	  if(error) { /* 404 - handle invalid */ }
-	  console.log('requested /static');
-	  response.writeHead(200, {'Content-Type' : mimetypes[ext]});
-	  response.end(content);
-	  resolve(true);
+	  if(error) {
+	    /* 404 - handle invalid */
+	  }
+	  else {
+	    response.writeHead(200, {'Content-Type' : mimetypes[ext]});
+	    response.end(content);
+	    resolve(true);
+	  }
 	});
-      } else {
+      }
+      else {
 	resolve(false);
       }
     });
@@ -32,7 +38,6 @@ module.exports = {
       switch(request.method) {
       case 'GET':
         if(onPath('/', request.url)) {
-	  console.log('requested /');
           ejs.renderFile('./views/home.ejs', (error, content) => {
 	    response.end(content);
             resolve(true);
