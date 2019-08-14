@@ -1,8 +1,8 @@
-# EDAmame - EDA Management Tool
+# EDAmame - Hardware Design Management Tool
 
 ## Project Goals:
 
-* Track personal part inventory effortlessly.
+* Track personal part inventory.
 * Assign Internal Part Numbers upon Order Import.
 * Suggest similar parts which can share an Internal Part Number (Approved Manufacturer Parts)
 * Associate KiCad libaries with inventory.
