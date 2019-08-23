@@ -1,7 +1,24 @@
-#+TITLE: To-Do list
+#+TITLE: To-Do List
 
-** TODO Test Digikey API
-   - [ ] Fetch Digikey order history (using Digikey API), print out
-** TODO Create naming rules for Internal Part Numbers (*IPN*), as needed.
-     E.g: *Resistors*: RES-<pkg>-<resistance>-<tolerance>-<temperature coefficient>
-** TODO Create API for python script to use to pull data from server to modify KiCad libs
+* Backend
+** TODO Schema [0/3]:
+   - [ ] Naming rules for Internal Part Numbers (*IPN*)
+   - [ ] Mongoose Schema for physical components (unique MPN)
+   - [ ] Mongoose Schema for parts (abstraction of all compatible MPNs)
+** TODO API [0/2]:
+   - [ ] Test Digikey API
+     - [ ] Fetch Digikey order history (using Digikey API), print out
+   - [ ] API for local KiCad design
+     - Check BOM cost
+** TODO Convert HTTP->HTTPS
+** TODO Authentication
+** TODO Detect mobile
+* Frontend
+** TODO Styling [0/2]:
+   - [ ] Design logo, favicon
+   - [ ] Style anchors as buttons
+** TODO Search bar
+** TODO Upload button
+   - PCB design (KiCad project? Git repo? Auto-generate archive/mftr-pkg on server?)
+   - Digikey order (csv?)
+   - If on mobile, QR code upload
