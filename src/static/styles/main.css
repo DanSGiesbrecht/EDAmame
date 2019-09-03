@@ -1,9 +1,21 @@
-a {
-  font-family: 'Varela Round', sans-serif;
-  font-size: 20px;
-}
-
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
+}
+
+.home {
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 40px;
+}
+.button {
+  font-family: 'Varela Round', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #c72468;
+  border-radius: 0.5em;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
