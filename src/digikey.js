@@ -2,6 +2,6 @@
 * digikey.js
 *************************************************************/
 
-const requestData = require('request');
-
+const request = require('request');
+const config = require('./config.js');
 // Test partdetails
