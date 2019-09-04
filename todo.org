@@ -6,11 +6,13 @@
    - [ ] Mongoose Schema for physical components (unique MPN)
    - [ ] Mongoose Schema for parts (abstraction of all compatible MPNs)
 ** TODO API [0/2]:
-   - [ ] Test Digikey API
+   - [ ] Test Digikey API [0/2]
+     - [ ] Setup OAuth2.0
      - [ ] Fetch Digikey order history (using Digikey API), print out
    - [ ] API for local KiCad design
      - Check BOM cost
 ** TODO Convert HTTP->HTTPS
+** TODO Handle invalid static GET requests
 ** TODO Authentication
 ** TODO Detect mobile
 * Frontend
