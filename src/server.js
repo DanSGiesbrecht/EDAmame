@@ -1,12 +1,16 @@
 /*************************************************************
 * server.js
 *************************************************************/
-const https = require('https');
+const https  = require('https');
+const fs     = require('fs');
 const routes = require('./routes.js');
 
 const routeArr = Object.values(routes);
-
-const server = https.createServer();
+const options = {
+  key:  fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+const server = https.createServer(options);
 
 server.on('request', async (request, response) => {
   // if any route returns <true>, stop checking routes.
