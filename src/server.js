@@ -1,12 +1,12 @@
 /*************************************************************
 * server.js
 *************************************************************/
-const http = require('http');
+const https = require('https');
 const routes = require('./routes.js');
 
 const routeArr = Object.values(routes);
 
-const server = http.createServer();
+const server = https.createServer();
 
 server.on('request', async (request, response) => {
   // if any route returns <true>, stop checking routes.
