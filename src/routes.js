@@ -33,6 +33,19 @@ module.exports = {
     });
   },
 
+  oauth: (request, response) => {
+    return new Promise((resolve, reject) => {
+      if(onPath('/oauth/redirect', request.url) && request.method === 'GET') {
+	console.log('oauth page');
+	console.log(queryData(request.url));
+	response.end();
+	resolve(true);
+      } else {
+	resolve(false);
+      }
+    });
+  },
+
   home: (request, response) => {
     return new Promise((resolve, reject) => {
       switch(request.method) {
@@ -58,4 +71,9 @@ module.exports = {
 function onPath(path, urlObj) {
   const reqUrl = url.parse(urlObj, true);
   return reqUrl.pathname.startsWith(path);
+}
+
+// queryData
+function queryData(urlObj) {
+  return url.parse(urlObj, true).query;
 }
