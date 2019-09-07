@@ -34,11 +34,15 @@ module.exports = {
     });
   },
 
-  oauth: (request, response) => {
+  oauth: async (request, response) => {
     // Note: there is no promise returned yet from getCode! It doesn't yet need it.
     if(helper.onPath('/oauth/redirect', request.url) && request.method === 'GET') {
       console.log('oauth page');
-      console.log('getCode: ' + digikey.getCode(request));
+      // get OAuth code
+      let code = digikey.getCode(request);
+      // request access token
+      let body = await digikey.requestTokens(code);
+
       response.end();
       return true;
     } else { return false; }
