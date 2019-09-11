@@ -20,6 +20,7 @@ module.exports = {
 	fs.readFile(filePath, (error, content) => {
 	  if(error) {
 	    /* 404 - handle invalid */
+	    resolve(false);
 	  }
 	  else {
 	    response.writeHead(200, {'Content-Type' : mimetypes[ext]});
@@ -40,6 +41,8 @@ module.exports = {
       console.log('oauth page');
       // get OAuth code
       let code = digikey.getCode(request);
+      // if code wasn't retrieved, 404 page
+      if(code === null) return false;
       // request access token
       let body = await digikey.requestTokens(code);
 
@@ -52,7 +55,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       switch(request.method) {
       case 'GET':
-        if(helper.onPath('/', request.url)) {
+        if(helper.exactPath('/', request.url)) {
           ejs.renderFile('./views/home.ejs', (error, content) => {
 	    response.end(content);
             resolve(true);
@@ -61,6 +64,16 @@ module.exports = {
 	  resolve(false);
         }
       }
+    });
+  },
+
+  fourOhFour: (request, response) => {
+    return new Promise((resolve, reject) => {
+      ejs.renderFile('./views/fourOhFour.ejs', (error, content) => {
+	response.writeHead(404, {'Content-Type': 'text/html'});
+	response.end(content);
+        resolve(false);
+      });
     });
   }
 };

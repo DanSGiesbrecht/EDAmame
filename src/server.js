@@ -18,6 +18,7 @@ server.on('request', async (request, response) => {
     console.log(routeArr[i]);
     if(await routeArr[i](request, response)) return;
   }
+  console.log("page wasn't found");
 });
 
 const port = 3000;
