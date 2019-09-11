@@ -14,8 +14,9 @@
      - Check BOM cost
 ** DONE Convert HTTP->HTTPS
    CLOSED: [2019-09-10 Tue 12:31]
+** TODO Re-route HTTP->HTTPS
 ** TODO Handle invalid static GET requests
-** TODO Authentication
+** TODO Authentication: Firebase
 ** TODO Detect mobile
 * Frontend
 ** TODO Styling [0/2]:
