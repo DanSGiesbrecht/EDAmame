@@ -1,17 +1,19 @@
 #+TITLE: To-Do List
 
 * Backend
-** TODO Schema [0/3]:
+** TODO Schema [0/4]:
    - [ ] Naming rules for Internal Part Numbers (*IPN*)
    - [ ] Mongoose Schema for physical components (unique MPN)
    - [ ] Mongoose Schema for parts (abstraction of all compatible MPNs)
+   - [ ] User Schema
 ** TODO API [0/2]:
-   - [ ] Test Digikey API [0/2]
-     - [ ] Setup OAuth2.0
+   - [-] Test Digikey API [1/2]
+     - [X] Setup OAuth2.0
      - [ ] Fetch Digikey order history (using Digikey API), print out
    - [ ] API for local KiCad design
      - Check BOM cost
-** TODO Convert HTTP->HTTPS
+** DONE Convert HTTP->HTTPS
+   CLOSED: [2019-09-10 Tue 12:31]
 ** TODO Handle invalid static GET requests
 ** TODO Authentication
 ** TODO Detect mobile
