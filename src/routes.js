@@ -3,7 +3,6 @@
 *************************************************************/
 
 const fs = require('fs');
-const ejs = require('ejs');
 const nodePath = require('path');
 const digikey = require('./digikey.js');
 const helper = require('./helper.js');
@@ -35,6 +34,23 @@ module.exports = {
     });
   },
 
+  login: (request, response) => {
+    // not yet promise
+    if(helper.exactPath('/login', request.url)){
+      switch(request.method){
+        case 'GET':
+
+	break;
+        case 'POST':
+
+	break;
+        default:
+	return false;
+
+      }
+    }
+  },
+
   oauth: async (request, response) => {
     // Note: there is no promise returned yet from getCode! It doesn't yet need it.
     if(helper.onPath('/oauth/redirect', request.url) && request.method === 'GET') {
@@ -51,29 +67,27 @@ module.exports = {
     } else { return false; }
   },
 
-  home: (request, response) => {
-    return new Promise((resolve, reject) => {
-      switch(request.method) {
-      case 'GET':
-        if(helper.exactPath('/', request.url)) {
-          ejs.renderFile('./views/home.ejs', (error, content) => {
-	    response.end(content);
-            resolve(true);
-          });
-        } else {
-	  resolve(false);
-        }
+  home: async (request, response) => {
+    if(helper.exactPath('/', request.url) && request.method === 'GET') {
+      try {
+	let data = await helper.renderEJS('./views/home.ejs');
+	await helper.respond(response, {status: 200, content: 'text/html'}, data);
+      } catch(error) {
+	console.log(error);
       }
-    });
+      return true;
+    } else {
+      return false;
+    }
   },
 
-  fourOhFour: (request, response) => {
-    return new Promise((resolve, reject) => {
-      ejs.renderFile('./views/fourOhFour.ejs', (error, content) => {
-	response.writeHead(404, {'Content-Type': 'text/html'});
-	response.end(content);
-        resolve(false);
-      });
-    });
+  fourOhFour: async (request, response) => {
+    // no routes were found
+    try {
+      let data = await helper.renderEJS('./views/fourOhFour.ejs');
+      await helper.respond(response, {status: 404, content: 'text/html'}, data);
+    } catch(error) {
+      console.log(error);
+    }
   }
 };
