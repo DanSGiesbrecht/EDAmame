@@ -13,12 +13,12 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let safePath = nodePath.normalize(decodeURI(request.url));
       if(helper.onPath('/static', safePath) && request.method === 'GET') {
-        const mimetypes = { 'css': 'text/css' };
+        const mimetypes = { 'css': 'text/css', 'png': 'image/png' };
         const filePath = '.' + request.url;
         const ext = filePath.split('.').pop();
 	fs.readFile(filePath, (error, content) => {
 	  if(error) {
-	    /* 404 - handle invalid */
+	    // 404 - handle invalid
 	    resolve(false);
 	  }
 	  else {
