@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('./partials/head.ejs',
+      {title: 'EDAmame - Sign Up'}); %>
+  </head>
+
+  <body>
+    <header>
+    <%- include('./partials/header.ejs'); %>
+    </header>
+
+    <main>
+      <form action="/signup" method="POST">
+	<input type="name" name="user_firstName" placeholder="First Name"><br>
+	<input type="name" name="user_lastName" placeholder="Last Name"><br>
+	<input type="email" name="user_email" placeholder="Email Address"><br>
+	<input type="password" name="user_pass" placeholder="Password"><br>
+	<input type="submit" value="Sign Up">
+      </form>
+    </main>
+
+    <footer>
+    <%- include('./partials/footer.ejs'); %>
+    </footer>
+  </body>
+</html>

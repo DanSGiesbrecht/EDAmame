@@ -13,7 +13,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let safePath = nodePath.normalize(decodeURI(request.url));
       if(helper.onPath('/static', safePath) && request.method === 'GET') {
-        const mimetypes = { 'css': 'text/css', 'png': 'image/png' };
+        const mimetypes = { 'css': 'text/css', 'png': 'image/png', 'js': 'text/javascript' };
         const filePath = '.' + request.url;
         const ext = filePath.split('.').pop();
 	fs.readFile(filePath, (error, content) => {
@@ -34,25 +34,56 @@ module.exports = {
     });
   },
 
-  login: (request, response) => {
-    // not yet promise
+  login: async (request, response) => {
     if(helper.exactPath('/login', request.url)){
       switch(request.method){
-        case 'GET':
+      case 'GET':
+	try{
+	  let data = await helper.renderEJS('./views/login.ejs');
+	  await helper.respond(response, {status: 200, content: 'text/html'}, data);
+	  return true;
+	} catch(error){
+	  console.log(error);
+	  return false;
+	}
+	break;
+      case 'POST':
+	let formData = await helper.parseForm(request);
 
 	break;
-        case 'POST':
-
-	break;
-        default:
+      default:
 	return false;
 
       }
-    }
+    } else { return false; }
+  },
+
+  signup: async (request, response) => {
+    if(helper.exactPath('/signup', request.url)){
+      switch(request.method){
+      case 'GET':
+	try{
+	  let data = await helper.renderEJS('./views/signup.ejs');
+	  await helper.respond(response, {status: 200, content: 'text/html'}, data);
+	  return true;
+	} catch(error){
+	  console.log(error);
+	  return false;
+	}
+	break;
+      case 'POST':
+	let formData = await helper.parseForm(request);
+
+	// redirect home
+	break;
+      default:
+	return false;
+
+      }
+    } else { return false; }
   },
 
   oauth: async (request, response) => {
-    // Note: there is no promise returned yet from getCode! It doesn't yet need it.
     if(helper.onPath('/oauth/redirect', request.url) && request.method === 'GET') {
       console.log('oauth page');
       // get OAuth code
@@ -72,10 +103,11 @@ module.exports = {
       try {
 	let data = await helper.renderEJS('./views/home.ejs');
 	await helper.respond(response, {status: 200, content: 'text/html'}, data);
+	return true;
       } catch(error) {
 	console.log(error);
+	return false;
       }
-      return true;
     } else {
       return false;
     }
