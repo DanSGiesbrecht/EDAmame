@@ -35,12 +35,13 @@ footer {
   border-radius: 50%;
   text-align: center;
   padding: 8px;
-}
-
-.grey {
   background-color: #5c6163;
 }
 
-.ico-small:hover {
+.imgAnc:focus {
+  outline: none;
+}
+
+.imgAnc:focus img, .imgAnc:hover img{
   background-image: linear-gradient(#00BBBB, #784DBF);
 }
